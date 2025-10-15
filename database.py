@@ -1,15 +1,29 @@
 import psycopg2
+from psycopg2 import sql
 
-# Connect to PostgreSQL
+DB_NAME = "company_db"
+DB_USER = "postgres"
+db_password = "123"
+DB_HOST = "localhost"
+DB_PORT = "5432"
 
-def get_connection():
-    return psycopg2.connect(
-        host = "local host",
-        dbname = "company_db",
-        user = "company_user",
-        password = "123"
-        port = "5432"
+try:
+    # Connect to PostgreSQL database
+    conn = psycopg2.connect(
+        dbname= DB_NAME,
+        user=DB_USER,       
+        password=DB_PASSWORD,        
+        host=DB_HOST,
+        port=DB_PORT
     )
+
+    print("Connected successfully!")
+
+except Exception as e:
+    print("Failed to connect to database:")
+    print(e)
+    
+    cur = conn.cursor()
 
 def create_tables():
     """Create table if they don't exist."""
@@ -31,7 +45,20 @@ def create_tables():
             department_id INTEGER REFERENCES departments(id) ON DELETE SET NULL
         );
     """)
-
     conn.commit()
-    cur.close()
-    conn.close()
+    print("Tables created successfully (departments, employees).")
+
+    except Exception as e:
+    print("Error while connecting or creating tables:")
+    print(e)
+
+    finally:
+    # Always close connection
+    if 'cur' in locals():
+        cur.close()
+    if 'conn' in locals():
+        conn.close()
+        print("Database connection closed.")
+
+if __name__ == "__main__":
+    create_tables()
