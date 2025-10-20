@@ -1,4 +1,6 @@
-from models import Department, Employee, list_departments, list_employees
+# craeting a CLI
+from models import Department, Employee
+
 
 def main_menu():
     while True:
@@ -30,11 +32,11 @@ def main_menu():
             list_employees()
 
         elif choice == "5":
-            print("Goodbye! 👋")
+            print("Goodbye!")
             break
 
         else:
-            print("❌ Invalid choice. Try again.")
+            print("Invalid choice. Try again.")
 
 
 if __name__ == "__main__":
