@@ -1,4 +1,4 @@
-from database import get_connection
+from database import connect_db
 
 # Department Class
 
@@ -12,7 +12,7 @@ class Department:
         If a department with the same name already exists,
         it does nothing (thanks to ON CONFLICT DO NOTHING).
         """
-        conn = get_connection()
+        conn = connect_db()
         cur = conn.cursor()
 
         #  Insert department name (if not already existing)
@@ -29,7 +29,7 @@ class Department:
     @staticmethod
     def all():
         """Fetch and return all departments."""
-        conn = get_connection()
+        conn = connect_db()
         cur = conn.cursor()
         cur.execute("SELECT * FROM departments ORDER BY id;")
         rows = cur.fetchall()
@@ -49,7 +49,7 @@ class Employee:
 
     def save(self):
         """Insert a new employee into the database."""
-        conn = get_connection()
+        conn = connect_db()
         cur = conn.cursor()
 
         cur.execute("""
@@ -64,7 +64,7 @@ class Employee:
     @staticmethod
     def all():
         """Return all employees with their department names."""
-        conn = get_connection()
+        conn = connect_db()
         cur = conn.cursor()
         cur.execute("""
             SELECT e.id, e.name, e.salary, d.name AS department
@@ -80,7 +80,7 @@ class Employee:
     @staticmethod
     def update_salary(emp_id, new_salary):
         """Update an employee's salary."""
-        conn = get_connection()
+        conn = connect_db()
         cur = conn.cursor()
         cur.execute("UPDATE employees SET salary = %s WHERE id = %s;", (new_salary, emp_id))
         conn.commit()
@@ -90,7 +90,7 @@ class Employee:
     @staticmethod
     def assign_department(emp_id, dept_id):
         """Assign an employee to a specific department."""
-        conn = get_connection()
+        conn = connect_db()
         cur = conn.cursor()
         cur.execute("UPDATE employees SET department_id = %s WHERE id = %s;", (dept_id, emp_id))
         conn.commit()
