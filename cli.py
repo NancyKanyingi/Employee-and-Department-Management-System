@@ -26,10 +26,10 @@ def main_menu():
             emp.save()
 
         elif choice == "3":
-            list_departments()
+            Department.all()
 
         elif choice == "4":
-            list_employees()
+            Employee.all()
 
         elif choice == "5":
             print("Goodbye!")
