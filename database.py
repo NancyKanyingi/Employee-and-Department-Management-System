@@ -18,7 +18,7 @@ def connect_db():
             host=DB_HOST,
             port=DB_PORT
         )
-        print("✅ Database connection successful.")
+        print("Database connection successful.")
         return conn
 
     except Exception as e:
