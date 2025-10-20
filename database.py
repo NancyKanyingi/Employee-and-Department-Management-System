@@ -18,7 +18,7 @@ def connect_db():
             host=DB_HOST,
             port=DB_PORT
         )
-        print("✅ Database connection successful.")
+        print("Database connection successful.")
         return conn
 
     except Exception as e:
@@ -67,5 +67,3 @@ def create_tables():
         print("Database connection closed.")
 
 
-if __name__ == "__main__":
-    create_tables()
