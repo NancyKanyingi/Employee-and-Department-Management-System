@@ -27,7 +27,7 @@ class Department:
         conn.close()
 
     @staticmethod
-    def all():
+    def list_all():
         """Fetch and return all departments."""
         conn = connect_db()
         cur = conn.cursor()
@@ -62,7 +62,7 @@ class Employee:
         conn.close()
 
     @staticmethod
-    def all():
+    def list_all():
         """Return all employees with their department names."""
         conn = connect_db()
         cur = conn.cursor()
