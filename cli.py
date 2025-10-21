@@ -33,10 +33,10 @@ def main_menu():
                 print("Invalid input. Ensure salary is a number.")
 
         elif choice == "3":
-            Department.list_departments()
+            Department.list_all()
 
         elif choice == "4":
-            Employee.list_employees()
+            Employee.list_all()
 
         elif choice == "5":
             dep_id = input("Enter department ID to delete: ").strip()
