@@ -1,6 +1,5 @@
-# craeting a CLI
 from models import Department, Employee
-
+from database import connect_db
 
 def main_menu():
     while True:
@@ -9,34 +8,56 @@ def main_menu():
         print("2. Add Employee")
         print("3. List Departments")
         print("4. List Employees")
-        print("5. Exit")
+        print("5. Delete Department")
+        print("6. Delete Employee")
+        print("7. Exit")
 
-        choice = input("Enter your choice: ")
+        choice = input("Enter your choice: ").strip()
 
         if choice == "1":
-            name = input("Enter department name: ")
-            dept = Department(name)
-            dept.save()
+            name = input("Enter department name: ").strip()
+            if name:
+                Department.add_department(name)
+            else:
+                print("Department name cannot be empty.")
 
         elif choice == "2":
-            name = input("Enter employee name: ")
-            salary = int(input("Enter employee salary: "))
-            department_id = int(input("Enter department ID: "))
-            emp = Employee(name, salary, department_id)
-            emp.save()
+            name = input("Enter employee name: ").strip()
+            salary = input("Enter employee salary: ").strip()
+            department_id = input("Enter department ID (or leave blank): ").strip()
+            department_id = int(department_id) if department_id else None
+
+            if name and salary.isdigit():
+                Employee.add_employee(name, int(salary), department_id)
+            else:
+                print("Invalid input. Ensure salary is a number.")
 
         elif choice == "3":
-            list_departments()
+            Department.list_departments()
 
         elif choice == "4":
-            list_employees()
+            Employee.list_employees()
 
         elif choice == "5":
+            dep_id = input("Enter department ID to delete: ").strip()
+            if dep_id.isdigit():
+                Department.delete_department(int(dep_id))
+            else:
+                print("Invalid department ID.")
+
+        elif choice == "6":
+            emp_id = input("Enter employee ID to delete: ").strip()
+            if emp_id.isdigit():
+                Employee.delete_employee(int(emp_id))
+            else:
+                print("Invalid employee ID.")
+
+        elif choice == "7":
             print("Goodbye!")
             break
 
         else:
-            print("Invalid choice. Try again.")
+            print("Invalid choice. Please select from 1–7.")
 
 
 if __name__ == "__main__":
