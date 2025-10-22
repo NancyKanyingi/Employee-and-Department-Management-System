@@ -15,28 +15,43 @@ def main_menu():
         choice = input("Enter your choice: ").strip()
 
         if choice == "1":
-            name = input("Enter department name: ").strip()
-            if name:
-                Department.add_department(name)
-            else:
-                print("Department name cannot be empty.")
+            # Add Department
+            name = input("Enter department name: ")
+            Department(name).save() 
+            print(f"Department '{name}' added successfully!")
 
         elif choice == "2":
-            name = input("Enter employee name: ").strip()
-            salary = input("Enter employee salary: ").strip()
-            department_id = input("Enter department ID (or leave blank): ").strip()
+            # Add Employee
+            name = input("Enter employee name: ")
+            salary = input("Enter salary: ")
+            department_id = input("Enter department ID (or leave blank for Unassigned): ").strip()
             department_id = int(department_id) if department_id else None
-
-            if name and salary.isdigit():
-                Employee.add_employee(name, int(salary), department_id)
-            else:
-                print("Invalid input. Ensure salary is a number.")
+            Employee(name, salary, department_id).save()  
+            print(f"Employee '{name}' added successfully!")
 
         elif choice == "3":
-            Department.list_all()
+            # List Departments
+            print("\nDepartments:")
+            departments = Department.list_all()
+            if departments:
+                print("ID | Name")
+                print("-------------")
+                for d in departments:
+                    print(f"{d[0]} | {d[1]}")
+            else:
+                print("No departments found.")
 
         elif choice == "4":
-            Employee.list_all()
+            # List Employees
+            print("\nEmployees:")
+            employees = Employee.list_all()
+            if employees:
+                print("ID | Name | Salary | Department")
+                print("------------------------------------")
+                for e in employees:
+                    print(f"{e[0]} | {e[1]} | {e[2]} | {e[3]}")
+            else:
+                print("No employees found.")
 
         elif choice == "5":
             dep_id = input("Enter department ID to delete: ").strip()
@@ -58,7 +73,6 @@ def main_menu():
 
         else:
             print("Invalid choice. Please select from 1–7.")
-
 
 if __name__ == "__main__":
     main_menu()
