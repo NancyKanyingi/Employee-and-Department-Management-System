@@ -70,14 +70,14 @@ class Employee:
 
     @staticmethod
     def list_all():
-        """Return all employees with their department names.""
+        """Return all employees with their department names."""
         conn = connect_db()
         cur = conn.cursor()
         cur.execute("""
             SELECT e.id, e.name, e.salary,
-                   COALESCE(d.name, 'Unassigned') AS department
+                COALESCE(d.name, 'Unassigned') AS department
             FROM employees e
-            LEFT JOIN departments d ON e.department_id = d.id;
+            LEFT JOIN departments d ON e.department_id = d.id
         """)
         rows = cur.fetchall()
         conn.close()
