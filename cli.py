@@ -1,5 +1,4 @@
 from models import Department, Employee
-from models import Department, Employee
 from database import connect_db
 
 def main_menu():
@@ -32,7 +31,7 @@ def main_menu():
 
         elif choice == "3":
             # List Departments
-            print("\n Departments:")
+            print("\nDepartments:")
             departments = Department.list_all()
             if departments:
                 print("ID | Name")
@@ -44,7 +43,7 @@ def main_menu():
 
         elif choice == "4":
             # List Employees
-            print("\n Employees:")
+            print("\nEmployees:")
             employees = Employee.list_all()
             if employees:
                 print("ID | Name | Salary | Department")
@@ -53,36 +52,6 @@ def main_menu():
                     print(f"{e[0]} | {e[1]} | {e[2]} | {e[3]}")
             else:
                 print("No employees found.")
-
-        elif choice == "5":
-            print("Exiting program...")
-            break
-
-        else:
-            print("Invalid choice, please try again.")
-
-            name = input("Enter department name: ").strip()
-            if name:
-                Department.add_department(name)
-            else:
-                print("Department name cannot be empty.")
-
-        elif choice == "2":
-            name = input("Enter employee name: ").strip()
-            salary = input("Enter employee salary: ").strip()
-            department_id = input("Enter department ID (or leave blank): ").strip()
-            department_id = int(department_id) if department_id else None
-
-            if name and salary.isdigit():
-                Employee.add_employee(name, int(salary), department_id)
-            else:
-                print("Invalid input. Ensure salary is a number.")
-
-        elif choice == "3":
-            Department.list_all()
-
-        elif choice == "4":
-            Employee.list_all()
 
         elif choice == "5":
             dep_id = input("Enter department ID to delete: ").strip()
@@ -104,8 +73,6 @@ def main_menu():
 
         else:
             print("Invalid choice. Please select from 1–7.")
-
-
 
 if __name__ == "__main__":
     main_menu()
